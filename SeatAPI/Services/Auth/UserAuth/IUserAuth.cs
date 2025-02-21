@@ -1,13 +1,13 @@
 ﻿using SeatAPI.DTOS.User;
+using SeatAPI.Models;
 
 namespace SeatAPI.Services.Auth.UserAuth
 {
     public interface IUserAuth
     {
         void RegisterUser(UserRegisterDto userRegisterDto);
-        void Login(string email, string password);
+        bool Login(string email, string password);
+       
 
-        //Task<UserRegisterDto> GetUserByIdAsync(int id);
-        //Task<bool> CreateUserAsync(UserRegisterDto userDto);
     }
 }

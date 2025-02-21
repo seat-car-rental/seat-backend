@@ -34,5 +34,6 @@ namespace SeatAPI.Services.Auth.UserAuth
             return _passwordHasher.VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt);
         }
 
+        
     }
 }
