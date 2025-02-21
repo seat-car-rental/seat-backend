@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace SeatAPI.Services.Auth
+namespace SeatAPI.Services.Auth.PasswordHasher
 {
     public interface IPasswordHasher
     {

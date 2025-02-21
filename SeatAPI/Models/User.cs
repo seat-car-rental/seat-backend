@@ -28,7 +28,7 @@ namespace SeatAPI.Models
         public bool Verified { get; set; } = false;
 
         [Required]
-        public string Role { get; set; } // Owner, Renter, Admin, CustomerService
+        public string Role { get; set; } // User, Admin, CustomerService
 
         // Navigation Properties
         public ICollection<Car> OwnedCars { get; set; } = new List<Car>();
