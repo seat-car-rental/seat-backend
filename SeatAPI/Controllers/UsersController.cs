@@ -24,7 +24,11 @@ namespace SeatAPI.Controllers
             return Ok(new { message = "User Login successfully" });
         }
 
-
+        [HttpGet("get-user-by-email")]
+        public ActionResult<User> GetUserByEmail(string email)
+        {
+            return _userAuth.GetUserByEmail(email);
+        }
 
     }
 }

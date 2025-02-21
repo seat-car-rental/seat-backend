@@ -7,7 +7,6 @@ namespace SeatAPI.Services.Auth.UserAuth
     {
         void RegisterUser(UserRegisterDto userRegisterDto);
         bool Login(string email, string password);
-       
-
+        User? GetUserByEmail(string Email);
     }
 }
