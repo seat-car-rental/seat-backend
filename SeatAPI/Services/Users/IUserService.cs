@@ -6,6 +6,6 @@ namespace SeatAPI.Services.Users
     {
         User? GetUserByEmail(string Email);
         List<User> GetAllUsers();
-        
+        void DeleteUser(string Email);
     }
 }
