@@ -34,12 +34,6 @@ namespace SeatAPI.Services.Auth.UserAuth
             return _passwordHasher.VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt);
         }
 
-        public User? GetUserByEmail(string email)
-        {
-            var user = _context.Users.FirstOrDefault(u => u.Email == email);
-            if (user == null) return null;
-
-            return user;
-        }
+       
     }
 }
