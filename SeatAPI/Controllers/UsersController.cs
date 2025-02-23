@@ -2,13 +2,14 @@
 using SeatAPI.DTOS.User;
 using SeatAPI.Models;
 using SeatAPI.Services.Auth.UserAuth;
+using SeatAPI.Services.Users;
 
 
 namespace SeatAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController(IUserAuth _userAuth) : ControllerBase
+    public class UsersController(IUserAuth _userAuth , IUserService _userService) : ControllerBase
     {
         [HttpPost("register")]
         public IActionResult Register([FromBody] UserRegisterDto userDto)
@@ -27,7 +28,7 @@ namespace SeatAPI.Controllers
         [HttpGet("get-user-by-email")]
         public ActionResult<User> GetUserByEmail(string email)
         {
-            return _userAuth.GetUserByEmail(email);
+            return _userService.GetUserByEmail(email);
         }
 
     }
