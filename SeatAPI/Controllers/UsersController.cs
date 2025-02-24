@@ -3,6 +3,7 @@ using SeatAPI.DTOS.User;
 using SeatAPI.Models;
 using SeatAPI.Services.Auth.UserAuth;
 using SeatAPI.Services.Users;
+using System.Security.Claims;
 
 
 namespace SeatAPI.Controllers
