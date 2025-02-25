@@ -30,6 +30,9 @@ namespace SeatAPI.Models
         [Required]
         public string Role { get; set; } // User, Admin, CustomerService
 
+        public string? RefreshToken { get; set; }
+        public DateTime RefreshTokenExpiryTime { get; set; }
+
         // Navigation Properties
         public ICollection<Car> OwnedCars { get; set; } = new List<Car>();
         public ICollection<Rental> Rentals { get; set; } = new List<Rental>();
