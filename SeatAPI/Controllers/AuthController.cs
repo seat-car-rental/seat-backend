@@ -1,4 +1,5 @@
 ﻿
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using SeatAPI.DTOS.Authentication;
@@ -10,12 +11,18 @@ namespace SeatAPI.Controllers
 
     [Route("api/auth")]
     [ApiController]
-    public class AuthController(IAuthService _authService , IUserAuth _userAuth) : ControllerBase
+    public class AuthController(IAuthService _authService , IUserAuth _userAuth , IValidator<UserRegisterDto> _registerValidator , IValidator<UserLoginDto> _loginValidator) : ControllerBase
     {
 
         [HttpPost("register")]
-        public IActionResult Register([FromBody] UserRegisterDto userDto)
+        public async Task<IActionResult> Register([FromBody] UserRegisterDto userDto)
         {
+            var validationResult = await _registerValidator.ValidateAsync(userDto);
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.Errors);
+            }
+
             var response = _userAuth.RegisterUser(userDto);
             if (response == null)
             {
@@ -25,8 +32,14 @@ namespace SeatAPI.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] UserLoginDto loginDto)
+        public async Task<IActionResult> Login([FromBody] UserLoginDto loginDto)
         {
+
+            var validationResult = await _loginValidator.ValidateAsync(loginDto);
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.Errors);
+            }
             var response = _userAuth.Login(loginDto);
             if (response == null)
             {

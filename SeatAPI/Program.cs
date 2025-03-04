@@ -9,6 +9,10 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using SeatAPI.Services.Admin;
 using Microsoft.OpenApi.Models;
+using FluentValidation.AspNetCore;
+using FluentValidation;
+using SeatAPI.DTOS.User;
+using SeatAPI.Validations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -83,7 +87,12 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+builder.Services.AddControllers()
+    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<UserRegisterDtoValidator>());
 
+
+builder.Services.AddScoped<IValidator<UserRegisterDto>, UserRegisterDtoValidator>();
+builder.Services.AddScoped<IValidator<UserLoginDto>, UserLoginDtoValidator>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserAuth, UserAuth>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();

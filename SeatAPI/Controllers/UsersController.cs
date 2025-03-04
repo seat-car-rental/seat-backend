@@ -23,7 +23,7 @@ namespace SeatAPI.Controllers
             var user = _context.Users.FirstOrDefault(x => x.Email == email);
             if (user == null || user.Role != "User")
             {
-                return BadRequest("User Not Found ");
+                return BadRequest("User Not Found");
             }
             
             return Ok(_userService.GetUserByEmail(email));
