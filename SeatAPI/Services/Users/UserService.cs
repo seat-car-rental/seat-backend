@@ -14,17 +14,8 @@ namespace SeatAPI.Services.Users
             return user;
         }
 
-        public List<User> GetAllUsers()
-        {
-            return _context.Users.ToList();
-        }
+        
 
-        public void DeleteUser(string Email)
-        {
-            var user = _context.Users.FirstOrDefault(u => u.Email == Email);
-            if (user == null) return ;
 
-            _context.Users.Remove(user);
-        }
     }
 }

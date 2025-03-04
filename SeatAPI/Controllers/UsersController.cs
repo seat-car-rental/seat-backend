@@ -20,7 +20,13 @@ namespace SeatAPI.Controllers
         [HttpGet("get-user-by-email")]
         public ActionResult<User> GetUserByEmail(string email)
         {
-            return _userService.GetUserByEmail(email);
+            var user = _context.Users.FirstOrDefault(x => x.Email == email);
+            if (user == null || user.Role != "User")
+            {
+                return BadRequest("User Not Found ");
+            }
+            
+            return Ok(_userService.GetUserByEmail(email));
         }
 
 
