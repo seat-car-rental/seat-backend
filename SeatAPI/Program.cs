@@ -13,6 +13,8 @@ using FluentValidation.AspNetCore;
 using FluentValidation;
 using SeatAPI.DTOS.User;
 using SeatAPI.Validations;
+using SeatAPI.Services.Auth.OtpService;
+using SeatAPI.Services.Auth.Email;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -91,6 +93,8 @@ builder.Services.AddControllers()
     .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<UserRegisterDtoValidator>());
 
 
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+
 builder.Services.AddScoped<IValidator<UserRegisterDto>, UserRegisterDtoValidator>();
 builder.Services.AddScoped<IValidator<UserLoginDto>, UserLoginDtoValidator>();
 builder.Services.AddScoped<IUserService, UserService>();
@@ -98,6 +102,9 @@ builder.Services.AddScoped<IUserAuth, UserAuth>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
+builder.Services.AddScoped<IOtpService, OtpService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+
 
 
 var app = builder.Build();

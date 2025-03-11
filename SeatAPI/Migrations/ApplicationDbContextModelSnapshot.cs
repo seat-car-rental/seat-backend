@@ -110,6 +110,34 @@ namespace SeatAPI.Migrations
                     b.ToTable("Notifications");
                 });
 
+            modelBuilder.Entity("SeatAPI.Models.Otp", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ExpiryTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsUsed")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Otps");
+                });
+
             modelBuilder.Entity("SeatAPI.Models.Payment", b =>
                 {
                     b.Property<int>("Id")
@@ -240,6 +268,17 @@ namespace SeatAPI.Migrations
                 });
 
             modelBuilder.Entity("SeatAPI.Models.Notification", b =>
+                {
+                    b.HasOne("SeatAPI.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("SeatAPI.Models.Otp", b =>
                 {
                     b.HasOne("SeatAPI.Models.User", "User")
                         .WithMany()

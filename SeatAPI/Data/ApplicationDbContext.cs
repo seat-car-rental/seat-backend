@@ -22,6 +22,8 @@ namespace SeatAPI.Data
         // Payments - To handle transactions
         public DbSet<Payment> Payments { get; set; }
 
+        public DbSet<Otp> Otps { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Ensure Unique Email for Users
@@ -56,6 +58,12 @@ namespace SeatAPI.Data
                 .WithOne(r => r.Payment)
                 .HasForeignKey<Payment>(p => p.RentalId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Otp>()
+            .HasOne(o => o.User)
+            .WithMany()
+            .HasForeignKey(o => o.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(modelBuilder);
         }
